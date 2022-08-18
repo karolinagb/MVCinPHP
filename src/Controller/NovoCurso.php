@@ -5,7 +5,7 @@ namespace Alura\Cursos\Controller;
 use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Infra\EntityManagerCreator;
 
-class NovoCurso
+class NovoCurso implements InterfaceControladorRequisicao
 {
     private $repositorioDeCursos;
 
