@@ -14,15 +14,21 @@ class Persistencia implements InterfaceControladorRequisicao
     public function __construct()
     {
         $this->entityManager = (new EntityManagerCreator())
-        ->getEntityManager();
+            ->getEntityManager();
     }
     public function processaRequisicao(): void
     {
         //pegar dados do formulario
 
         //montar modelo curso
+        $descricao = filter_input(
+            INPUT_POST,
+            'descricao',
+            FILTER_SANITIZE_STRING
+        );
+
         $curso = new Curso();
-        $curso->setDescricao($_POST["descricao"]);
+        $curso->setDescricao($descricao);
 
         //inserir no banco
         $this->entityManager->persist($curso);
