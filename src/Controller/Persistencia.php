@@ -21,10 +21,8 @@ class Persistencia implements InterfaceControladorRequisicao
         //pegar dados do formulario
 
         //montar modelo curso
-        $descricao = filter_input(
-            INPUT_POST,
-            'descricao',
-            FILTER_SANITIZE_STRING
+        $descricao = strip_tags(
+            $_POST['descricao']
         );
 
         $curso = new Curso();
