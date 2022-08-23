@@ -31,5 +31,19 @@ class Persistencia implements InterfaceControladorRequisicao
         //inserir no banco
         $this->entityManager->persist($curso);
         $this->entityManager->flush();
+
+        // O servidor só redireciona
+        // Para exibir os dados antes de redirecionar
+            // Tem que usar uma tecnologia do lado do cliente
+            // como JS
+        // echo "Curso $descricao salvo com sucesso";
+
+        //true (opcional)= pode substituir outro location que tiver no header 
+        //302 = status para redirecionamento - opcional
+        header(
+            'Location: /listar-cursos',
+            true,
+            302
+        );
     }
 }
