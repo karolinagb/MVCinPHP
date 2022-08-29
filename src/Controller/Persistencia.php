@@ -26,11 +26,28 @@ class Persistencia implements InterfaceControladorRequisicao
         );
 
         $curso = new Curso();
-        $curso->setDescricao($descricao);
+       
 
-        //inserir no banco
-        $this->entityManager->persist($curso);
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        if(!is_null($id) && $id !== false){
+
+            $curso = $this->entityManager->find(Curso::class, $id);
+            //atualizar
+            if($curso !== null){
+                // var_dump($id, $descricao);
+                // // exit();
+                $curso->setDescricao($descricao);
+            };
+        }
+        else{
+            //inserir no banco
+            $curso->setDescricao($descricao);
+            $this->entityManager->persist($curso);
+        }
+
         $this->entityManager->flush();
+
 
         // O servidor só redireciona
         // Para exibir os dados antes de redirecionar
