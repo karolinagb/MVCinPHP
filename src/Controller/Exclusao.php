@@ -2,12 +2,14 @@
 
 namespace Alura\Cursos\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Alura\Cursos\Controller\InterfaceControladorRequisicao;
+use Alura\Cursos\Entity\Curso;
 
 class Exclusao implements InterfaceControladorRequisicao
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct()
     {
@@ -23,7 +25,7 @@ class Exclusao implements InterfaceControladorRequisicao
             return;
         }
 
-        $curso = $this->entityManager->find(Exclusao::class, $id);
+        $curso = $this->entityManager->find(Curso::class, $id);
 
         if($curso == null){
             header('Location: /listar-cursos');
