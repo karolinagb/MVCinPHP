@@ -6,8 +6,9 @@ use Alura\Cursos\Entity\Curso;
 use Doctrine\ORM\EntityManagerInterface;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Alura\Cursos\Controller\InterfaceControladorRequisicao;
+use Alura\Cursos\Controller\ControllerComHtml;
 
-class FormularioEdicao implements InterfaceControladorRequisicao
+class FormularioEdicao extends ControllerComHtml implements InterfaceControladorRequisicao
 {
     private EntityManagerInterface $entityManager;
 
@@ -32,7 +33,9 @@ class FormularioEdicao implements InterfaceControladorRequisicao
             return;
         }
 
-        $titulo = 'Alterar curso ' . $curso->getDescricao();
-        require __DIR__ . '/../view/cursos/novo-curso.php';
+        echo $this->renderizaHtml('cursos/novo-curso.php', [
+            'curso' => $curso,
+            'titulo' => 'Alterar curso ' . $curso->getDescricao()
+        ]);
     }
 }
