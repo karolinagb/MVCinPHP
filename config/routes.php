@@ -6,6 +6,7 @@ use Alura\Cursos\Controller\FormularioLogin;
 use Alura\Cursos\Controller\ListarCursos;
 use Alura\Cursos\Controller\NovoCurso;
 use Alura\Cursos\Controller\Persistencia;
+use Alura\Cursos\Controller\RealizarLogin;
 
 $rotas = 
 [
@@ -15,7 +16,8 @@ $rotas =
     '/salvar-curso' => Persistencia::class,
     '/excluir-curso' => Exclusao::class,
     '/alterar-curso' => FormularioEdicao::class,
-    '/login' => FormularioLogin::class
+    '/login' => FormularioLogin::class,
+    '/realiza-login' => RealizarLogin::class
 ];
 
 // rotas serão devolvidas para o arquivo que chamar elas
