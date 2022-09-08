@@ -25,7 +25,8 @@ session_start();
 //stripos = verifica se tem uma string dentro de outra, esse i diz que nao vai ter diferença entre minuscula e
 //maiuscula
 //retorna a posição da string buscada dentro da string de busca ou false se nao encontrar
-$ehRotaDeLogin = stripos($caminho, 'login');
+// $ehRotaDeLogin = stripos($caminho, 'login');
+$ehRotaDeLogin = str_contains($caminho, 'login');//nova função, retorna verdadeiro ou falso
 if(!isset($_SESSION['logado']) && $ehRotaDeLogin === false)
 {
     header('Location: /login');
