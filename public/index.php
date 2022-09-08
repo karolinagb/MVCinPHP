@@ -26,7 +26,7 @@ session_start();
 //maiuscula
 //retorna a posição da string buscada dentro da string de busca ou false se nao encontrar
 // $ehRotaDeLogin = stripos($caminho, 'login');
-$ehRotaDeLogin = str_contains($caminho, 'login');//nova função, retorna verdadeiro ou falso
+$ehRotaDeLogin = str_contains($caminho, 'login');//nova função, retorna verdadeiro ou falso com distinção entre maiúsculas e minúsculas
 if(!isset($_SESSION['logado']) && $ehRotaDeLogin === false)
 {
     header('Location: /login');
@@ -39,3 +39,11 @@ $nomeClasseControlador = $rotas[$caminho];
 /** @var InterfaceControladorRequisicao */
 $controlador = new $nomeClasseControlador();
 $controlador->processaRequisicao();
+
+
+//obs:
+//Alternativa correta! A função strpos simplesmente busca uma string dentro de outra, e retorna sua posição. 
+//Caso não encontre, retorna false. Logo, podemos garantir que há a string “login” na URL garantindo que o 
+//retorno é diferente de false. A função stripos é idêntica à strpos, mas não leva em consideração letras 
+//maiúsculas ou minúsculas na hora de comparar. Caso você precise realizar estas comparações em strings que 
+//possam ter acentos, utilize a função mb_stripos
