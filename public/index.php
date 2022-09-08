@@ -16,6 +16,9 @@ if (!array_key_exists($caminho, $rotas)) {
     exit();
 }
 
+//qualquer controlador que for executador vai ter a sessão já inicializada
+session_start();
+
 // pega o nome da classe
 $nomeClasseControlador = $rotas[$caminho];
 // com isso posso instanciar
