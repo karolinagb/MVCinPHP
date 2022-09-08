@@ -17,7 +17,20 @@ if (!array_key_exists($caminho, $rotas)) {
 }
 
 //qualquer controlador que for executador vai ter a sessão já inicializada
+//esse código precisar ser chamado antes de qualquer saída ter sido enviada ao navegador, ou seja, antes de um 
+//echo, var_dump, printr, antes de exibir o html. Como ele utiliza cookie, ele precisa estar nas informações do 
+//cabeçalho do http
 session_start();
+
+//stripos = verifica se tem uma string dentro de outra, esse i diz que nao vai ter diferença entre minuscula e
+//maiuscula
+//retorna a posição da string buscada dentro da string de busca ou false se nao encontrar
+$ehRotaDeLogin = stripos($caminho, 'login');
+if(!isset($_SESSION['logado']) && $ehRotaDeLogin === false)
+{
+    header('Location: /login');
+    exit(); //tem que parar senão continua executando o arquivo
+}
 
 // pega o nome da classe
 $nomeClasseControlador = $rotas[$caminho];
