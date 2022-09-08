@@ -38,12 +38,14 @@ class Persistencia implements InterfaceControladorRequisicao
                 // var_dump($id, $descricao);
                 // // exit();
                 $curso->setDescricao($descricao);
+                $_SESSION['mensagem'] = "Curso atualizado com sucesso";
             };
         }
         else{
             //inserir no banco
             $curso->setDescricao($descricao);
             $this->entityManager->persist($curso);
+            $_SESSION['mensagem'] = "Curso inserido com sucesso";
         }
 
         $this->entityManager->flush();
@@ -54,6 +56,9 @@ class Persistencia implements InterfaceControladorRequisicao
             // Tem que usar uma tecnologia do lado do cliente
             // como JS
         // echo "Curso $descricao salvo com sucesso";
+
+        $_SESSION['tipo_mensagem'] = 'success';
+         
 
         //true (opcional)= pode substituir outro location que tiver no header 
         //302 = status para redirecionamento - opcional

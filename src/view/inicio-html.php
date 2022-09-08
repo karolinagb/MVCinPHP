@@ -23,3 +23,14 @@
     <div class="jumbotron">
         <h1> <?= $titulo ?> </h1>
     </div>
+
+<?php if (isset($_SESSION['mensagem'])) : ?>
+    <div class="alert alert-<?= $_SESSION['tipo_mensagem']; ?>">
+        <?= $_SESSION['mensagem']; ?>
+    </div>
+<?php 
+// removendo os dados da mensagem para aparecer apenas uma vez 
+unset($_SESSION['tipo_mensagem']);
+unset($_SESSION['mensagem']);
+
+endif; ?>
