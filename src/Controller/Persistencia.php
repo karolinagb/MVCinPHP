@@ -6,9 +6,12 @@ use Alura\Cursos\Entity\Curso;
 use Doctrine\ORM\EntityManagerInterface;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Alura\Cursos\Controller\InterfaceControladorRequisicao;
+use Alura\Cursos\Helper\FlashMessageTrait;
 
 class Persistencia implements InterfaceControladorRequisicao
 {
+    use FlashMessageTrait;
+
     private EntityManagerInterface $entityManager;
 
     public function __construct()
@@ -18,18 +21,20 @@ class Persistencia implements InterfaceControladorRequisicao
     }
     public function processaRequisicao(): void
     {
+
         //pegar dados do formulario
 
         //montar modelo curso
         $descricao = strip_tags(
             $_POST['descricao']
         );
-
+        
         $curso = new Curso();
-       
-
+        
+        
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
+        
+        $tipo = 'success';
         if(!is_null($id) && $id !== false){
 
             $curso = $this->entityManager->find(Curso::class, $id);
@@ -38,14 +43,17 @@ class Persistencia implements InterfaceControladorRequisicao
                 // var_dump($id, $descricao);
                 // // exit();
                 $curso->setDescricao($descricao);
-                $_SESSION['mensagem'] = "Curso atualizado com sucesso";
-            };
+                $this->defineMensagem($tipo, 'Curso atualizado com sucesso');
+            }
+            else{
+                $this->defineMensagem('danger', 'Curso inexistente');
+            }
         }
         else{
             //inserir no banco
             $curso->setDescricao($descricao);
             $this->entityManager->persist($curso);
-            $_SESSION['mensagem'] = "Curso inserido com sucesso";
+            $this->defineMensagem($tipo, 'Curso inserido com sucesso');
         }
 
         $this->entityManager->flush();
@@ -57,7 +65,6 @@ class Persistencia implements InterfaceControladorRequisicao
             // como JS
         // echo "Curso $descricao salvo com sucesso";
 
-        $_SESSION['tipo_mensagem'] = 'success';
          
 
         //true (opcional)= pode substituir outro location que tiver no header 
